@@ -1,21 +1,24 @@
-from pathlib import Path
-from random import shuffle
 import random
+
+from src.main.utils.jssp_instance import load_orlib_jobshop
 from src.main.ga.chromosome import generate_random_chromosome
-from src.main.ga.selection import tournament_selection, roulette_selection
+from src.main.ga.crossover import pox_crossover
 from src.main.utils.schedule import fitness
-from src.main.utils.jssp_instance import load_orlib_jobshop, JSSPInstance
 
+jssp_instance = load_orlib_jobshop("datasets/ft06.txt")
 
-jssp_instance: JSSPInstance = load_orlib_jobshop("datasets/ft06.txt")
+rng = random.Random(79)
 
-rng = random.Random(48)
+parent1 = generate_random_chromosome(jssp_instance, rng)
+parent2 = generate_random_chromosome(jssp_instance, rng)
 
+print("Parent 1 fitness:", fitness(jssp_instance, parent1))
+print("Parent 2 fitness:", fitness(jssp_instance, parent2))
 
-population = [generate_random_chromosome(jssp_instance, rng) for _ in range(10)]
+child = pox_crossover(parent1, parent2, jssp_instance, rng)
 
-winner = tournament_selection(population, jssp_instance, rng)
-selected = roulette_selection(population, jssp_instance, rng)
+print("\nChild fitness:", fitness(jssp_instance, child))
 
-print("Tournament winner fitness:", fitness(jssp_instance, winner))
-print("Roulette selected fitness:", fitness(jssp_instance, selected))
+print("\nSanity checks:")
+print("Child length:", len(child))
+print("Counts:", {j: child.count(j) for j in range(jssp_instance.n_jobs)})
