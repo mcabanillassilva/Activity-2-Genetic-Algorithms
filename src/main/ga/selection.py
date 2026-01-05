@@ -1,5 +1,5 @@
 import random
-from typing import List, Callable
+from typing import List
 
 from src.main.utils.jssp_instance import JSSPInstance
 from src.main.ga.chromosome import Chromosome
@@ -7,10 +7,7 @@ from src.main.utils.schedule import fitness
 
 
 def tournament_selection(
-    population: List[Chromosome],
-    instance: JSSPInstance,
-    rng: random.Random,
-    k: int = 3
+    population: List[Chromosome], instance: JSSPInstance, rng: random.Random, k: int = 3
 ) -> Chromosome:
     """
     Tournament selection: choose k individuals at random
@@ -21,9 +18,7 @@ def tournament_selection(
 
 
 def roulette_selection(
-    population: List[Chromosome],
-    instance: JSSPInstance,
-    rng: random.Random
+    population: List[Chromosome], instance: JSSPInstance, rng: random.Random
 ) -> Chromosome:
     """
     Roulette wheel selection.

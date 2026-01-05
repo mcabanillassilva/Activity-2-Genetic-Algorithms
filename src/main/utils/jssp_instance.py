@@ -26,9 +26,7 @@ def load_orlib_jobshop(path: str) -> JSSPInstance:
     n_jobs, n_machines = map(int, lines[0].split())
 
     if len(lines) != n_jobs + 1:
-        raise ValueError(
-            f"Expected {n_jobs} job lines, got {len(lines) - 1}"
-        )
+        raise ValueError(f"Expected {n_jobs} job lines, got {len(lines) - 1}")
 
     jobs: List[List[Task]] = []
 
@@ -36,16 +34,9 @@ def load_orlib_jobshop(path: str) -> JSSPInstance:
         tokens = list(map(int, lines[i].split()))
 
         if len(tokens) != 2 * n_machines:
-            raise ValueError(
-                f"Job line {i} does not contain {2 * n_machines} values"
-            )
+            raise ValueError(f"Job line {i} does not contain {2 * n_machines} values")
 
         job = [(tokens[j], tokens[j + 1]) for j in range(0, len(tokens), 2)]
         jobs.append(job)
 
-    return JSSPInstance(
-        n_jobs=n_jobs,
-        n_machines=n_machines,
-        jobs=jobs
-    )
-
+    return JSSPInstance(n_jobs=n_jobs, n_machines=n_machines, jobs=jobs)

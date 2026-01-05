@@ -11,12 +11,12 @@ class ScheduleResult:
     """
     Result of decoding a chromosome into a schedule.
     """
+
     makespan: int
 
 
 def decode_and_evaluate(
-    instance: JSSPInstance,
-    chromosome: Chromosome
+    instance: JSSPInstance, chromosome: Chromosome
 ) -> ScheduleResult:
     """
     Decodes a job-based chromosome into a schedule.
@@ -39,10 +39,7 @@ def decode_and_evaluate(
         machine, duration = instance.jobs[job_id][op_idx]
 
         # Determine the earliest start time
-        start_time = max(
-            job_ready_time[job_id],
-            machine_ready_time[machine]
-        )
+        start_time = max(job_ready_time[job_id], machine_ready_time[machine])
 
         # Schedule the operation
         finish_time = start_time + duration
@@ -57,10 +54,7 @@ def decode_and_evaluate(
     return ScheduleResult(makespan=makespan)
 
 
-def fitness(
-    instance: JSSPInstance,
-    chromosome: Chromosome
-) -> int:
+def fitness(instance: JSSPInstance, chromosome: Chromosome) -> int:
     """
     Fitness function to minimize makespan.
     """

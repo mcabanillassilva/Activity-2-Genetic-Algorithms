@@ -7,8 +7,7 @@ Chromosome = List[int]
 
 
 def generate_random_chromosome(
-    instance: JSSPInstance,
-    rng: random.Random
+    instance: JSSPInstance, rng: random.Random
 ) -> Chromosome:
     """
     Job-based chromosome representation.
