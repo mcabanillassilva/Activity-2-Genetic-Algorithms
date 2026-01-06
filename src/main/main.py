@@ -1,31 +1,38 @@
 import random
 
 from src.main.utils.jssp_instance import load_orlib_jobshop
-from src.main.ga.chromosome import generate_random_chromosome
+from src.main.ga.ga_core import run_ga, GAConfig
+from src.main.ga.selection import tournament_selection, roulette_selection
 from src.main.ga.crossover import pox_crossover, two_point_crossover
-from src.main.utils.schedule import fitness
+from src.main.ga.mutation import swap_mutation, insertion_mutation
 
-jssp_instance = load_orlib_jobshop("datasets/ft06.txt")
 
-rng = random.Random(87)
+def main():
+    instance = load_orlib_jobshop("datasets/ft06.txt")
 
-parent1 = generate_random_chromosome(jssp_instance, rng)
-parent2 = generate_random_chromosome(jssp_instance, rng)
+    config = GAConfig(
+        population_size=60,
+        generations=300,
+        crossover_rate=0.9,
+        mutation_rate=0.2,
+        elitism_size=1,
+        seed=42,
+        patience=80,
+    )
 
-print("=== Parents ===")
-print("Parent 1 fitness:", fitness(jssp_instance, parent1))
-print("Parent 2 fitness:", fitness(jssp_instance, parent2))
+    result = run_ga(
+        instance=instance,
+        selection=tournament_selection,
+        crossover=pox_crossover,
+        mutation=swap_mutation,
+        config=config,
+    )
 
-child_pox = pox_crossover(parent1, parent2, jssp_instance, rng)
+    print("Best fitness:", result.best_fitness)
+    print("Stopped at generation:", result.stopped_generation)
+    print("First 10 best history:", result.history_best[:10])
+    print("Last 10 best history:", result.history_best[-10:])
 
-print("\n=== POX Crossover ===")
-print("Child fitness:", fitness(jssp_instance, child_pox))
-print("Length:", len(child_pox))
-print("Counts:", {j: child_pox.count(j) for j in range(jssp_instance.n_jobs)})
 
-child_tp = two_point_crossover(parent1, parent2, jssp_instance, rng)
-
-print("\n=== Two-point Crossover ===")
-print("Child fitness:", fitness(jssp_instance, child_tp))
-print("Length:", len(child_tp))
-print("Counts:", {j: child_tp.count(j) for j in range(jssp_instance.n_jobs)})
+if __name__ == "__main__":
+    main()
