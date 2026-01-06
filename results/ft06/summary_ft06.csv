@@ -1,0 +1,7 @@
+selection,crossover,mutation,best_fitness,stopped_generation
+tournament,pox,swap,55,93
+tournament,pox,insertion,55,107
+tournament,two_point,swap,57,130
+roulette,pox,swap,55,213
+roulette,pox,insertion,58,113
+roulette,two_point,insertion,59,86
