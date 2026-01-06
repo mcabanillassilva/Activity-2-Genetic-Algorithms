@@ -41,5 +41,4 @@ def roulette_selection(
         if current >= pick:
             return chrom
 
-    # Fallback (numerical safety)
     return population[-1]

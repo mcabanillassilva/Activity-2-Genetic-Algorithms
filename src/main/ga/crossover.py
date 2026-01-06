@@ -1,4 +1,4 @@
-from typing import List, Optional, Set, cast
+from typing import List, Optional, Set
 import random
 
 from src.main.ga.chromosome import Chromosome
