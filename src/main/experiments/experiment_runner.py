@@ -8,6 +8,44 @@ from src.main.ga.crossover import pox_crossover, two_point_crossover
 from src.main.ga.mutation import swap_mutation, insertion_mutation
 
 
+from src.main.ga.ga_core import GAConfig
+
+
+def config_for(filename: str) -> GAConfig:
+    if filename == "ft06.txt":
+        return GAConfig(
+            population_size=60,
+            generations=300,
+            crossover_rate=0.9,
+            mutation_rate=0.2,
+            elitism_size=1,
+            seed=42,
+            patience=80,
+        )
+    if filename == "abz5.txt":
+        return GAConfig(
+            population_size=120,
+            generations=600,
+            crossover_rate=0.9,
+            mutation_rate=0.25,
+            elitism_size=2,
+            seed=42,
+            patience=150,
+        )
+    if filename == "abz9.txt":
+        return GAConfig(
+            population_size=150,
+            generations=800,
+            crossover_rate=0.9,
+            mutation_rate=0.30,
+            elitism_size=2,
+            seed=42,
+            patience=200,
+        )
+
+    raise ValueError("Unknown dataset")
+
+
 def run_experiments():
 
     filename = "abz9.txt"
@@ -71,15 +109,7 @@ def run_experiments():
         for sel_name, cx_name, mut_name, sel, cx, mut in experiments:
             print(f"Running {sel_name} + {cx_name} + {mut_name}")
 
-            config = GAConfig(
-                population_size=60,
-                generations=300,
-                crossover_rate=0.9,
-                mutation_rate=0.2,
-                elitism_size=1,
-                seed=42,
-                patience=80,
-            )
+            config = config_for(filename)
 
             result = run_ga(
                 instance=instance,
