@@ -48,7 +48,7 @@ def config_for(filename: str) -> GAConfig:
 
 def run_experiments():
 
-    filename = "abz9.txt"
+    filename = "ft06.txt"
     instance = load_orlib_jobshop(f"datasets/{filename}")
 
     output_dir = Path("results") / filename.replace(".txt", "")
