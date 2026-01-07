@@ -1,0 +1,7 @@
+mutation,initial_temperature,cooling_rate,best_fitness,iterations
+swap,1000.0,0.995,875,1838
+swap,1500.0,0.995,904,1919
+insertion,1000.0,0.995,950,1838
+insertion,1500.0,0.995,894,1919
+swap,1000.0,0.99,924,917
+insertion,1000.0,0.99,982,917
